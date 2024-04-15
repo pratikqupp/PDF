@@ -8,10 +8,7 @@ app.use(express.json()); // Middleware to parse JSON bodies
 let browserInstance;
 
 app.post('/', async (req, res) => {
-    if (!browserInstance) {
-        browserInstance = await puppeteer.launch({ headless: true });
-    }
-
+    const browserInstance = await puppeteer.launch({ args: ['--no-sandbox'] });
     const requestData = req.body;
     // Extracting all fields from the request body
     const clinicAddress = requestData.clinicAddress;
