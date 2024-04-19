@@ -1,5 +1,5 @@
 const express = require('express');
-const pdfkit = require('pdfkit');
+const puppeteer = require('puppeteer');
 const fs = require('fs');
 
 const app = express();
@@ -15,7 +15,6 @@ app.post('/', async (req, res) => {
     const requestData = req.body;
     // Extracting all fields from the request body
     const clinicAddress = requestData.clinicAddress;
-    const language = requestData.language;
     const clinicLogoUrl = requestData.clinicLogoUrl;
     const clinicUrl = requestData.clinicUrl;
     const clinicContact = requestData.clinicContact;
@@ -25,6 +24,7 @@ app.post('/', async (req, res) => {
     const doctorName = requestData.doctorName;
     const instructions = requestData.instructions;
     const investigations = requestData.investigations;
+    const language = requestData.language;
     const medicineDTOS = requestData.medicineDTOS;
     const symptoms = requestData.symptoms;
     const patientBookingRequestId = requestData.patientBookingRequestId;
@@ -115,9 +115,9 @@ app.post('/', async (req, res) => {
 <br>
 </div>
 `: '';
-    const investigationsLayout = settings.medicalHistory ? `<p><strong>Investigations :</strong> ${investigations}</p>
+    const investigationsLayout = settings.medicalHistory?`<p><strong>Investigations :</strong> ${investigations}</p>
 <br>
-`: ``;
+`:``;
     const instructionsLayout = settings.instruction ? `
 <p><strong>General instructions :</strong></p>
 <p>${instructions}</p>
@@ -142,7 +142,6 @@ app.post('/', async (req, res) => {
     <title>Q UP Bill</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+${language}:wght@400&display=swap" rel="stylesheet">
     <style>
-        @import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,900,700,500,300,100);
 
         * {
             margin: ${prescriptionPrintSettings.marginTop}   ${prescriptionPrintSettings.marginRight} ${prescriptionPrintSettings.marginBottom} ${prescriptionPrintSettings.marginLeft};
