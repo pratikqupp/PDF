@@ -9,7 +9,7 @@ let browserInstance;
 
 app.post('/', async (req, res) => {
     if (!browserInstance) {
-         browserInstance = await puppeteer.launch({ args: ['--no-sandbox'] });
+        browserInstance = await puppeteer.launch({ args: ['--no-sandbox'] });
     }
 
     const requestData = req.body;
@@ -115,9 +115,9 @@ app.post('/', async (req, res) => {
 <br>
 </div>
 `: '';
-    const investigationsLayout = settings.medicalHistory?`<p><strong>Investigations :</strong> ${investigations}</p>
+    const investigationsLayout = settings.medicalHistory ? `<p><strong>Investigations :</strong> ${investigations}</p>
 <br>
-`:``;
+`: ``;
     const instructionsLayout = settings.instruction ? `
 <p><strong>General instructions :</strong></p>
 <p>${instructions}</p>
@@ -363,21 +363,23 @@ app.post('/', async (req, res) => {
                     ${investigationsLayout}
                     ${instructionsLayout}
                     ${followupLayout}
+                    <div style="display: flex; align-items: center;">
+    <div class="info" style="flex: 1; margin-right: 20px;">
+        <p style="color: blue; margin: 0;">Download your prescription on Q UP app</p>
+        <img id="qr-code" alt="Clinic logo" width="68" height="68">
+    </div>
+    <div id="project" style="flex: 1;">
+        ${footer}
+    </div>
                 </div>
             </div>
         </div>
     </div>
     <div>
-    <div id="invoice-mid">
-        <div class="info">
-            <p style="color: blue;">Download your prescription on Q UP app</p>
-            <br>
-            <img id="qr-code" alt="Clinic logo" width="68" height="68">
-        </div>
-        <div id="project">
-        ${footer}
-        </div>
-    </div>
+</div>
+
+</div>
+
 </div>
     </div>
     <script>
