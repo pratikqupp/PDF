@@ -1,5 +1,5 @@
 const express = require('express');
-const puppeteer = require('puppeteer');
+const pdfkit = require('pdfkit');
 const fs = require('fs');
 
 const app = express();
@@ -25,7 +25,6 @@ app.post('/', async (req, res) => {
     const doctorName = requestData.doctorName;
     const instructions = requestData.instructions;
     const investigations = requestData.investigations;
-    const languageId = requestData.languageId;
     const medicineDTOS = requestData.medicineDTOS;
     const symptoms = requestData.symptoms;
     const patientBookingRequestId = requestData.patientBookingRequestId;
@@ -116,9 +115,9 @@ app.post('/', async (req, res) => {
 <br>
 </div>
 `: '';
-    const investigationsLayout = settings.medicalHistory?`<p><strong>Investigations :</strong> ${investigations}</p>
+    const investigationsLayout = settings.medicalHistory ? `<p><strong>Investigations :</strong> ${investigations}</p>
 <br>
-`:``;
+`: ``;
     const instructionsLayout = settings.instruction ? `
 <p><strong>General instructions :</strong></p>
 <p>${instructions}</p>
@@ -137,13 +136,11 @@ app.post('/', async (req, res) => {
     const htmlContent =
         `
 <!DOCTYPE html>
-<html lang="${language}">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Q UP Bill</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+${language}:wght@400&display=swap" rel="stylesheet">
     <style>
         @import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,900,700,500,300,100);
 
@@ -153,10 +150,7 @@ app.post('/', async (req, res) => {
         }
 
         body {
-            font-family: 'Noto Sans', sans-serif;
-            background: #E0E0E0;
-            font-family: 'Roboto', sans-serif;
-            background-image: url('');
+            font-family: 'Noto Sans ${language}', sans-serif;
             background-repeat: repeat-y;
             background-size: 100%;
         }
