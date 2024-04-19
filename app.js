@@ -15,6 +15,7 @@ app.post('/', async (req, res) => {
     const requestData = req.body;
     // Extracting all fields from the request body
     const clinicAddress = requestData.clinicAddress;
+    const language = requestData.language;
     const clinicLogoUrl = requestData.clinicLogoUrl;
     const clinicUrl = requestData.clinicUrl;
     const clinicContact = requestData.clinicContact;
@@ -57,8 +58,8 @@ app.post('/', async (req, res) => {
             <h2>${doctorName}</h2>
             <p class="degree" style="max-width: 600px; word-wrap: break-word;">${doctorDegress}</p>
         </div>
-        <hr style="background-color: rgb(226, 223, 223);">
     </div>
+    <hr style="background-color: rgb(226, 223, 223);">
 </div>
 ` : '';
 
@@ -136,12 +137,13 @@ app.post('/', async (req, res) => {
     const htmlContent =
         `
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${language}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Q UP Bill</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400&display=swap" rel="stylesheet">
     <style>
         @import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,900,700,500,300,100);
 
@@ -151,6 +153,7 @@ app.post('/', async (req, res) => {
         }
 
         body {
+            font-family: 'Noto Sans', sans-serif;
             background: #E0E0E0;
             font-family: 'Roboto', sans-serif;
             background-image: url('');
