@@ -15,8 +15,8 @@ app.post('/', async (req, res) => {
     const requestData = req.body;
     // Extracting all fields from the request body
     const clinicAddress = requestData.clinicAddress;
-    const clinicLogoUrl = requestData.clinicLogoUrl;
-    const clinicUrl = requestData.clinicUrl;
+    const entiyLogo = requestData.entiyLogo;
+    const qrCode = requestData.qrCode;
     const clinicContact = requestData.clinicContact;
     const clinicName = requestData.clinicName;
     const clinicalFindings = requestData.clinicalFindings;
@@ -27,6 +27,7 @@ app.post('/', async (req, res) => {
     const language = requestData.language;
     const medicineDTOS = requestData.medicineDTOS;
     const symptoms = requestData.symptoms;
+    const vital = requestData.vital;
     const patientBookingRequestId = requestData.patientBookingRequestId;
     const patientName = requestData.patientName;
     const prescriptionId = requestData.prescriptionId;
@@ -98,6 +99,7 @@ app.post('/', async (req, res) => {
             </td>
             <td class="tableitem">
                 <p class="itemtext">${medicine.brandName}</p>
+                <p class="itemtext">${medicine.genericName}</p>
             </td>
             <td class="tableitem">
                 <p class="itemtext">${medicine.frequancy}</p>
@@ -338,7 +340,7 @@ app.post('/', async (req, res) => {
             <div id="invoice-mid">
                 <div class="info">
                     <h2>Name : ${patientName}</h2>
-                    ${settings.vitals ? `<p>Age/Gender : ${patientAgeGender}` : ``}
+                    <p>Age/Gender : ${patientAgeGender}
                     </p>
                 </div>
                 <div id="project">
@@ -352,6 +354,7 @@ app.post('/', async (req, res) => {
         <div id="invoice" class="effect2">
             <div id="invoice-bot">
                 <div id="left-section">
+                ${settings.vitals ? `<p><strong>Vital : </strong> ${vital}</p> <br>` : ``}
                     ${symptomsLayout}
                     ${clinicalFindingLayout}
                     ${diagnosesLayout}
@@ -388,12 +391,12 @@ app.post('/', async (req, res) => {
             new Promise(resolve => {
                 const img = new Image();
                 img.onload = () => resolve(img);
-                img.src = '${clinicLogoUrl}';
+                img.src = '${entiyLogo}';
             }),
             new Promise(resolve => {
                 const img = new Image();
                 img.onload = () => resolve(img);
-                img.src = '${clinicUrl}';
+                img.src = '${qrCode}';
             })
         ]);
 
