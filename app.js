@@ -11,7 +11,6 @@ app.post('/', async (req, res) => {
     if (!browserInstance) {
         browserInstance = await puppeteer.launch({ args: ['--no-sandbox'] });
     }
-
     const requestData = req.body;
     // Extracting all fields from the request body
     const clinicAddress = requestData.clinicAddress;
@@ -417,10 +416,9 @@ app.post('/', async (req, res) => {
     if (settings.letterHead) {
         await page.waitForSelector('#clinic-logo');
     }
-
     const pdfBuffer = await page.pdf();
-
     res.setHeader('Content-Type', 'application/pdf');
+    console.log('data ',req.body);
     res.send(pdfBuffer);
 });
 
