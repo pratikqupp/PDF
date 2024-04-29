@@ -50,7 +50,7 @@ app.post('/', async (req, res) => {
         <div class="info">
             <h2>${clinicName}</h2>
             <p>${clinicAddress}<br>
-                Contact :${clinicContact}
+            <strong>Contact :</strong> ${clinicContact}
             </p>
         </div>
         <div id="project">
@@ -281,7 +281,7 @@ app.post('/', async (req, res) => {
         }
 
         .itemtext {
-            font-size: .9em;
+            font-size: 11px;
         }
 
         #legalcopy {
@@ -343,12 +343,12 @@ app.post('/', async (req, res) => {
             <div id="invoice-mid">
                 <div class="info">
                     <h2>Name : ${patientName}</h2>
-                    <p>Age/Gender : ${patientAgeGender}
+                    <p><strong>Age/Gender :</strong> ${patientAgeGender}
                     </p>
                 </div>
                 <div id="project">
-                    <h2>Date : ${prescriptionDate}</h2>
-                    <p>Mobile No : ${patientMobileNumber}
+                    <h2><strong>Date :</strong> ${prescriptionDate}</h2>
+                    <p><strong>Mobile No :</strong> ${patientMobileNumber}
                     </p>
                 </div>
             </div>
@@ -384,12 +384,10 @@ app.post('/', async (req, res) => {
                     <div class="info" style="flex: 1; margin-right: 20px;">
                     ${qrCode ? `
                     <img src="data:image/png;base64,${qrCode}" width="38" height="38" style="display: block; margin: 0 auto;"</img>
-                    <p style="color: blue; margin: 0;">Download your prescription on Q UP app</p>
+                    <p style="color: blue; margin: 0; font-size: 10px;">Download your prescription on Q UP app</p>
                     ` : ``}
                     </div>
-                    <div id="project" style="flex: 1;">
-                        ${footer}
-                    </div>
+                    <div id="project" style="flex: 1;"> ${footer} </div>
                 </div>
             </div>
         </div>
