@@ -46,7 +46,7 @@ app.post('/', async (req, res) => {
     const entityLayout = settings.letterHead ? `
 <div>
     <div id="invoice-mid">
-    ${entityLogo ? `<img src="data:image/png;base64,${entityLogo}" width="68" height="68" style="display: block; margin: 0 auto;"` : ``}>
+    ${entityLogo ? `<img src="data:image/png;base64,${entityLogo}" width="68" height="68" style="display: block; margin: 0 auto;"><br>` : ``}
         <div class="info">
             <h2>${clinicName}</h2>
             <p>${clinicAddress}<br>
@@ -383,9 +383,9 @@ app.post('/', async (req, res) => {
                     <div style="display: flex; align-items: center;">
                     <div class="info" style="flex: 1; margin-right: 20px;">
                     ${qrCode ? `
+                    <img src="data:image/png;base64,${qrCode}" width="38" height="38" style="display: block; margin: 0 auto;"</img>
                     <p style="color: blue; margin: 0;">Download your prescription on Q UP app</p>
-                    <img src="data:image/png;base64,${qrCode}" width="38" height="38" style="display: block; margin: 0 auto;"
-                    ` : ``}>
+                    ` : ``}
                     </div>
                     <div id="project" style="flex: 1;">
                         ${footer}
