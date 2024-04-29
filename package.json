@@ -4,11 +4,10 @@
   "description": "Generate PDFs using Puppeteer",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "dependencies": {
     "express": "^4.19.2",
-    "pdfkit": "^0.15.0",
     "puppeteer": "22.6.3"
   },
   "engines": {

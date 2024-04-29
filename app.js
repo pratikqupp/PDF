@@ -12,41 +12,41 @@ app.post('/', async (req, res) => {
         browserInstance = await puppeteer.launch({ args: ['--no-sandbox'] });
     }
     const requestData = req.body;
-    // Extracting all fields from the request body
-    const clinicAddress = requestData.clinicAddress;
-    const entiyLogo = requestData.entiyLogo;
-    const qrCode = requestData.qrCode;
-    const clinicContact = requestData.clinicContact;
-    const clinicName = requestData.clinicName;
-    const clinicalFindings = requestData.clinicalFindings;
-    const diagnoses = requestData.diagnoses;
-    const doctorName = requestData.doctorName;
-    const instructions = requestData.instructions;
-    const investigations = requestData.investigations;
-    const language = requestData.language;
-    const medicineDTOS = requestData.medicineDTOS;
-    const symptoms = requestData.symptoms;
-    const vital = requestData.vital;
-    const patientBookingRequestId = requestData.patientBookingRequestId;
-    const patientName = requestData.patientName;
-    const prescriptionId = requestData.prescriptionId;
-    const entityId = requestData.entityId;
-    const privateInstruction = requestData.privateInstruction;
-    const followupDate = requestData.followupDate;
-    const followupNote = requestData.followupNote;
-    const referredDoctorId = requestData.referredDoctorId;
-    const referredDoctorName = requestData.referredDoctorName;
-    const doctorDegress = requestData.doctorDegress;
-    const patientMobileNumber = requestData.patientMobileNumber;
-    const prescriptionDate = requestData.prescriptionDate;
-    const patientAgeGender = requestData.patientAgeGender;
-    const settings = requestData.settings;
-    const prescriptionPrintSettings = requestData.prescriptionPrintSettings;
+    const clinicAddress = requestData.clinicAddress ? requestData.clinicAddress : "";
+    const entityLogo = requestData.entityLogo ? requestData.entityLogo : "";
+    const qrCode = requestData.qrCode ? requestData.qrCode : "";
+    const clinicContact = requestData.clinicContact ? requestData.clinicContact : "";
+    const clinicName = requestData.clinicName ? requestData.clinicName : "";
+    const clinicalFindings = requestData.clinicalFindings ? requestData.clinicalFindings : "";
+    const diagnoses = requestData.diagnoses ? requestData.diagnoses : "";
+    const doctorName = requestData.doctorName ? requestData.doctorName : "";
+    const instructions = requestData.instructions ? requestData.instructions : "";
+    const investigations = requestData.investigations ? requestData.investigations : "";
+    const language = requestData.language ? requestData.language : "";
+    const medicineDTOS = requestData.medicineDTOS ? requestData.medicineDTOS : [];
+    const symptoms = requestData.symptoms ? requestData.symptoms : "";
+    const vital = requestData.vital ? requestData.vital : "";
+    const patientBookingRequestId = requestData.patientBookingRequestId ? requestData.patientBookingRequestId : "";
+    const patientName = requestData.patientName ? requestData.patientName : "";
+    const prescriptionId = requestData.prescriptionId ? requestData.prescriptionId : "";
+    const entityId = requestData.entityId ? requestData.entityId : "";
+    const privateInstruction = requestData.privateInstruction ? requestData.privateInstruction : "";
+    const followupDate = requestData.followupDate ? requestData.followupDate : "";
+    const followupNote = requestData.followupNote ? requestData.followupNote : "";
+    const referredDoctorId = requestData.referredDoctorId ? requestData.referredDoctorId : "";
+    const referredDoctorName = requestData.referredDoctorName ? requestData.referredDoctorName : "";
+    const doctorDegress = requestData.doctorDegress ? requestData.doctorDegress : "";
+    const patientMobileNumber = requestData.patientMobileNumber ? requestData.patientMobileNumber : "";
+    const prescriptionDate = requestData.prescriptionDate ? requestData.prescriptionDate : "";
+    const patientAgeGender = requestData.patientAgeGender ? requestData.patientAgeGender : "";
+    const settings = requestData.settings ? requestData.settings : {};
+    const prescriptionPrintSettings = requestData.prescriptionPrintSettings ? requestData.prescriptionPrintSettings : {};
+    const medicalInfoOfGynecModule = requestData.medicalInfoOfGynecModule ? requestData.medicalInfoOfGynecModule : {};
 
     const entityLayout = settings.letterHead ? `
 <div>
     <div id="invoice-mid">
-        <img id="clinic-logo" alt="Clinic logo" width="68" height="68" style="display: block; margin: 0 auto;">
+    ${entityLogo ? `<img src="data:image/png;base64,${entityLogo}" width="68" height="68" style="display: block; margin: 0 auto;"` : ``}>
         <div class="info">
             <h2>${clinicName}</h2>
             <p>${clinicAddress}<br>
@@ -62,9 +62,9 @@ app.post('/', async (req, res) => {
 </div>
 ` : '';
 
-    const symptomsLayout = settings.symptoms ? ` <p><strong>Symptoms : </strong> ${symptoms}</p>
+    const symptomsLayout = settings.symptoms ? `<p><strong>Symptoms :</strong> ${symptoms}</p>
 <br>`: '';
-    const clinicalFindingLayout = settings.clinicalFinding ? ` <p><strong>Clinical Findings : </strong> ${clinicalFindings}</p>
+    const clinicalFindingLayout = settings.clinicalFinding ? `<p><strong>Clinical Findings :</strong> ${clinicalFindings}</p>
 <br>`: '';
     const diagnosesLayout = settings.diagnosis ? `<p><strong>Diagnosis :</strong> ${diagnoses}</p>
 <br>`: '';
@@ -82,9 +82,11 @@ app.post('/', async (req, res) => {
     <td class="Rate">
         <h2>DURATION </h2>
     </td>
+    ${settings.totalQuantity ? `
     <td class="subtotal">
         <h2>QUANTITY </h2>
     </td>
+    `: ``}
 </tr>`;
     const medicineTable = settings.medicineComposition ? `
     <div id="middle-section">
@@ -98,17 +100,19 @@ app.post('/', async (req, res) => {
             </td>
             <td class="tableitem">
                 <p class="itemtext">${medicine.brandName}</p>
-                <p class="itemtext">${medicine.genericName}</p>
+                <p class="itemtext">${medicine.genericName ? medicine.genericName : ""}</p>
             </td>
             <td class="tableitem">
-                <p class="itemtext">${medicine.frequancy}</p>
+                <p class="itemtext">${medicine.frequancy ? medicine.frequancy : ""}</p>
             </td>
             <td class="tableitem">
-                <p class="itemtext">${medicine.duration}</p>
+                <p class="itemtext">${medicine.duration ? medicine.duration : ""}</p>
             </td>
+            ${settings.totalQuantity ? `
             <td class="tableitem">
-                <p class="itemtext">${medicine.quantity}</p>
-            </td>
+            <p class="itemtext">${medicine.quantity ? medicine.quantity : ""}</p>
+        </td>
+    `: ``}      
         </tr>`
     ).join('')}
     </table>
@@ -358,67 +362,54 @@ app.post('/', async (req, res) => {
                     ${clinicalFindingLayout}
                     ${diagnosesLayout}
                 </div>
-                
                     ${medicineTable}
-               
                 <div id="right-section">
+                ${medicalInfoOfGynecModule.gptal ? `<p><strong>GTPAL :</strong> ${medicalInfoOfGynecModule.gptal}</p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.lmpOrEdd ? `<p><strong>LMP/EDD :</strong> ${medicalInfoOfGynecModule.lmpOrEdd}</p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.cEdd ? `<p><strong>C-EDD :</strong> ${medicalInfoOfGynecModule.cEdd}</p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.cycle ? `<p><strong>Cycle :</strong> ${medicalInfoOfGynecModule.cycle}</p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.flow ? `<p><strong>Flow :</strong> ${medicalInfoOfGynecModule.flow}</p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.surgeryList ? `<p><strong>Surgery :</strong> ${medicalInfoOfGynecModule.surgeryList}</p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.patientHistory ? `<p><strong>Patient Medical Disease :</strong> ${medicalInfoOfGynecModule.patientHistory}</p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.familyMemberHistory ? `<p><strong>Family Member Medical Disease :</strong> ${medicalInfoOfGynecModule.familyMemberHistory}</p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.breastCancer ? `<p><strong>Breast Cancer :</strong> ${medicalInfoOfGynecModule.breastCancer}</p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.childWithMentalOrGeneticDisorder ? `<p><strong>Child with mental or genetic disorder :</strong> ${medicalInfoOfGynecModule.childWithMentalOrGeneticDisorder}</p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.menopausheAge ? `<p><strong>Menopause Age :</strong> ${medicalInfoOfGynecModule.menopausheAge}</p> <br> ` : ``}
+               
                     ${investigationsLayout}
                     ${instructionsLayout}
                     ${followupLayout}
+
                     <div style="display: flex; align-items: center;">
-    <div class="info" style="flex: 1; margin-right: 20px;">
-        <p style="color: blue; margin: 0;">Download your prescription on Q UP app</p>
-        <img id="qr-code" alt="Clinic logo" width="68" height="68">
-    </div>
-    <div id="project" style="flex: 1;">
-        ${footer}
-    </div>
+                    <div class="info" style="flex: 1; margin-right: 20px;">
+                    ${qrCode ? `
+                    <p style="color: blue; margin: 0;">Download your prescription on Q UP app</p>
+                    <img src="data:image/png;base64,${qrCode}" width="38" height="38" style="display: block; margin: 0 auto;"
+                    ` : ``}>
+                    </div>
+                    <div id="project" style="flex: 1;">
+                        ${footer}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+     </div>
     <div>
 </div>
-
 </div>
-
 </div>
     </div>
     <script>
-    window.onload = async () => {
-        const [clinicLogoImg, qrCodeImg] = await Promise.all([
-            new Promise(resolve => {
-                const img = new Image();
-                img.onload = () => resolve(img);
-                img.src = '${entiyLogo}';
-            }),
-            new Promise(resolve => {
-                const img = new Image();
-                img.onload = () => resolve(img);
-                img.src = '${qrCode}';
-            })
-        ]);
-
-        document.getElementById('clinic-logo').src = clinicLogoImg.src;
-        document.getElementById('qr-code').src = qrCodeImg.src;
-    };
     </script>
 </body>
-
 </html>
 `;
 
     const page = await browserInstance.newPage();
-
     await page.setContent(htmlContent, { waitUntil: 'domcontentloaded' });
-    // Wait for the image to load
-    await page.waitForSelector('#qr-code');
-    if (settings.letterHead) {
-        await page.waitForSelector('#clinic-logo');
-    }
     const pdfBuffer = await page.pdf();
     res.setHeader('Content-Type', 'application/pdf');
-    console.log('data ',req.body);
+    console.log('data ', req.body);
     res.send(pdfBuffer);
 });
 
