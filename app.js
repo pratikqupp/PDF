@@ -66,9 +66,11 @@ app.post('/', async (req, res) => {
 <br>`: '';
     const clinicalFindingLayout = settings.clinicalFinding ? `<p><strong>Clinical Findings :</strong> ${clinicalFindings}</p>
 <br>`: '';
-    const diagnosesLayout = settings.diagnosis ? `<p><strong>Diagnosis :</strong> ${diagnoses}</p>
-<br>`: '';
 
+const diagnosesLayout = settings.diagnosis ? 
+`${diagnoses ? `<p><strong>Diagnosis :</strong> ${diagnoses}</p>
+<br>`:``}
+`: ``;
     const medicineHeaders = ` <tr class="tabletitle">
     <td class="sr">
         <h2>RX </h2>
@@ -120,20 +122,15 @@ app.post('/', async (req, res) => {
 <br>
 </div>
 `: '';
-    const investigationsLayout = settings.medicalHistory ? `<p><strong>Investigations :</strong> ${investigations}</p>
-<br>
-`: ``;
+    const investigationsLayout =  
+    `${investigations ? `<p><strong>Investigations :</strong> ${investigations}</p>
+    <br>`:``}
+`;
     const instructionsLayout = settings.instruction ? `
-<p><strong>General instructions :</strong></p>
-<p>${instructions}</p>
+    ${instructions ? `<p><strong>General instructions :</strong></p>
+<p>${instructions}</p>`:``}
 <br>
 `: '';
-    const followupLayout = `
-<p><strong>Next Follow-up :</strong> Date:- ${followupDate}</p>
-<br>
-<p><strong>Followup Note : </strong> ${followupNote}</p>
-<br>`;
-
     const footer = settings.signature ? ` <div>
         <h2>${doctorName}</h2>
         <p class="degree" style="max-width: 600px; word-wrap: break-word;">${doctorDegress}</p>
@@ -378,7 +375,8 @@ app.post('/', async (req, res) => {
                
                     ${investigationsLayout}
                     ${instructionsLayout}
-                    ${followupLayout}
+                    ${followupDate ? ` <p><strong>Next Follow-up :</strong> Date:- ${followupDate}</p> <br> `: ``}
+                    ${followupNote ? ` <p><strong>Followup Note : </strong> ${followupNote}</p> <br> `: ``}
 
                     <div style="display: flex; align-items: center;">
                     <div class="info" style="flex: 1; margin-right: 20px;">
