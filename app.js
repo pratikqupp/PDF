@@ -23,7 +23,7 @@ app.post('/', async (req, res) => {
     const doctorName = requestData.doctorName ? requestData.doctorName : "";
     const instructions = requestData.instructions ? requestData.instructions : "";
     const investigations = requestData.investigations ? requestData.investigations : "";
-    const language = requestData.language ? requestData.language : "";
+
     const medicineDTOS = requestData.medicineDTOS ? requestData.medicineDTOS : [];
     const symptoms = requestData.symptoms ? requestData.symptoms : "";
     const vital = requestData.vital ? requestData.vital : "";
@@ -43,6 +43,19 @@ app.post('/', async (req, res) => {
     const settings = requestData.settings ? requestData.settings : {};
     const prescriptionPrintSettings = requestData.prescriptionPrintSettings ? requestData.prescriptionPrintSettings : {};
     const medicalInfoOfGynecModule = requestData.medicalInfoOfGynecModule ? requestData.medicalInfoOfGynecModule : {};
+
+    const language = getLanguage(requestData.language ? requestData.language : "");
+
+    function getLanguage(language) {
+        switch (language.toLowerCase()) {
+            case 'english':
+            case 'marathi':
+            case 'hindi':
+                return 'Devnagari';
+            default:
+                return language;
+        }
+    }
 
     const entityLayout = settings.letterHead ? `
 <div>
@@ -68,9 +81,9 @@ app.post('/', async (req, res) => {
     const clinicalFindingLayout = settings.clinicalFinding ? `<p><strong>Clinical Findings :</strong> ${clinicalFindings}</p>
 <br>`: '';
 
-const diagnosesLayout = settings.diagnosis ? 
-`${diagnoses ? `<p><strong>Diagnosis :</strong> ${diagnoses}</p>
-<br>`:``}
+    const diagnosesLayout = settings.diagnosis ?
+        `${diagnoses ? `<p><strong>Diagnosis :</strong> ${diagnoses}</p>
+<br>`: ``}
 `: ``;
     const medicineHeaders = ` <tr class="tabletitle">
     <td class="sr">
@@ -123,13 +136,13 @@ const diagnosesLayout = settings.diagnosis ?
 <br>
 </div>
 `: '';
-    const investigationsLayout =  
-    `${investigations ? `<p><strong>Investigations :</strong> ${investigations}</p>
-    <br>`:``}
+    const investigationsLayout =
+        `${investigations ? `<p><strong>Investigations :</strong> ${investigations}</p>
+    <br>`: ``}
 `;
     const instructionsLayout = settings.instruction ? `
     ${instructions ? `<p><strong>General instructions :</strong></p>
-<p>${instructions}</p>`:``}
+<p>${instructions}</p>` : ``}
 <br>
 `: '';
     const footer = settings.signature ? ` <div>
@@ -376,8 +389,8 @@ const diagnosesLayout = settings.diagnosis ?
                
                     ${investigationsLayout}
                     ${instructionsLayout}
-                    ${followupDate ? ` <p><strong>Next Follow-up :</strong> Date:- ${followupDate}</p> <br> `: ``}
-                    ${followupNote ? ` <p><strong>Followup Note : </strong> ${followupNote}</p> <br> `: ``}
+                    ${followupDate ? ` <p><strong>Next Follow-up :</strong> Date:- ${followupDate}</p> <br> ` : ``}
+                    ${followupNote ? ` <p><strong>Followup Note : </strong> ${followupNote}</p> <br> ` : ``}
 
                     <div style="display: flex; align-items: center;">
                     <div class="info" style="flex: 1; margin-right: 20px;">
