@@ -49,9 +49,14 @@ app.post('/', async (req, res) => {
     function getLanguage(language) {
         switch (language.toLowerCase()) {
             case 'english':
+                return 'Devanagari';
+                break;
             case 'marathi':
+                return 'Devanagari';
+                break;
             case 'hindi':
                 return 'Devanagari';
+                break;
             default:
                 return language;
             
