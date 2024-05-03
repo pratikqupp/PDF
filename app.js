@@ -51,9 +51,10 @@ app.post('/', async (req, res) => {
             case 'english':
             case 'marathi':
             case 'hindi':
-                return 'Devnagari';
+                return 'Devanagari';
             default:
                 return language;
+            
         }
     }
 
