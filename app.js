@@ -12,6 +12,7 @@ app.post('/', async (req, res) => {
         browserInstance = await puppeteer.launch({ args: ['--no-sandbox'] });
     }
     const requestData = req.body;
+    console.log('req ', req);
     const clinicAddress = requestData.clinicAddress ? requestData.clinicAddress : "";
     const entityLogo = requestData.entityLogo ? requestData.entityLogo : "";
     const qrCode = requestData.qrCode ? requestData.qrCode : "";
@@ -405,7 +406,6 @@ const diagnosesLayout = settings.diagnosis ?
     await page.setContent(htmlContent, { waitUntil: 'domcontentloaded' });
     const pdfBuffer = await page.pdf();
     res.setHeader('Content-Type', 'application/pdf');
-    console.log('data ', req.body);
     res.send(pdfBuffer);
 });
 
