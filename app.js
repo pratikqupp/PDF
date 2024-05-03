@@ -44,7 +44,7 @@ app.post('/', async (req, res) => {
     const prescriptionPrintSettings = requestData.prescriptionPrintSettings ? requestData.prescriptionPrintSettings : {};
     const medicalInfoOfGynecModule = requestData.medicalInfoOfGynecModule ? requestData.medicalInfoOfGynecModule : {};
 
-    const language = getLanguage(requestData.language ? requestData.language : "");
+    const language = getLanguage(requestData.languageName ? requestData.languageName : "");
 
     function getLanguage(language) {
         switch (language.toLowerCase()) {
