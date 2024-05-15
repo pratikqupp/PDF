@@ -25,7 +25,7 @@ app.post('/', async (req, res) => {
     const investigations = requestData.investigations ? requestData.investigations : "";
 
     const medicineDTOS = requestData.medicineDTOS ? requestData.medicineDTOS : [];
-    const symptoms = requestData.symptoms ? requestData.symptoms : "";
+    const symptoms = requestData.symptom ? requestData.symptom : "";
     const vital = requestData.vital ? requestData.vital : "";
     const patientBookingRequestId = requestData.patientBookingRequestId ? requestData.patientBookingRequestId : "";
     const patientName = requestData.patientName ? requestData.patientName : "";
