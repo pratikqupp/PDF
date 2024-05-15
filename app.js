@@ -64,24 +64,23 @@ app.post('/', async (req, res) => {
     }
 
     const entityLayout = settings.letterHead ? `
-<div>
-    <div id="invoice-mid">
-    ${entityLogo ? `<img src="data:image/png;base64,${entityLogo}" width="68" height="68" style="display: block; margin: 0 auto;"><br>` : ``}
-        <div class="info">
-            <h2>${clinicName}</h2>
-            <p>${clinicAddress}<br>
-            <strong>Contact :</strong> ${clinicContact}
-            </p>
+    <div>
+        <div id="invoice-mid" style="display: flex; justify-content: space-between;">
+            ${entityLogo ? `<img src="data:image/png;base64,${entityLogo}" width="68" height="68" style="display: block; margin: 0 auto;"><br>` : ``}
+            <div class="info" style="width: calc(50% - 25px);">
+                <h2>${clinicName}</h2>
+                <p style="max-width: 100%;">${clinicAddress}<br>
+                <strong>Contact :</strong> ${clinicContact}
+                </p>
+            </div>
+            <div id="project" style="width: calc(50% - 25px);">
+                <h2>${doctorName}</h2>
+                <p class="degree" style="max-width: 100%; word-wrap: break-word;">${doctorDegress}</p>
+            </div>
         </div>
-        <div id="project">
-            <h2>${doctorName}</h2>
-            <p class="degree" style="max-width: 600px; word-wrap: break-word;">${doctorDegress}</p>
-        </div>
+        <hr style="background-color: rgb(226, 223, 223);">
     </div>
-    <hr style="background-color: rgb(226, 223, 223);">
-</div>
-` : '';
-
+    ` : '';
     const symptomsLayout = settings.symptoms ? `<p><strong>Symptoms :</strong> ${symptoms}</p>
 <br>`: '';
     const clinicalFindingLayout = settings.clinicalFinding ? `<p><strong>Clinical Findings :</strong> ${clinicalFindings}</p>
