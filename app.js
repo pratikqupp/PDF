@@ -12,7 +12,7 @@ app.post('/', async (req, res) => {
         browserInstance = await puppeteer.launch({ args: ['--no-sandbox'] });
     }
     const requestData = req.body;
-    console.log('req ', req);
+    console.log('req ', req.body);
     const clinicAddress = requestData.clinicAddress ? requestData.clinicAddress : "";
     const entityLogo = requestData.entityLogo ? requestData.entityLogo : "";
     const qrCode = requestData.qrCode ? requestData.qrCode : "";
