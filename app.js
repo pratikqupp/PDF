@@ -59,7 +59,7 @@ app.post('/', async (req, res) => {
                 break;
             default:
                 return language;
-            
+
         }
     }
 
@@ -109,7 +109,7 @@ app.post('/', async (req, res) => {
     </td>
     `: ``}
 </tr>`;
-    const medicineTable = settings.medicineComposition ? `
+    const medicineTable = medicineDTOS ? `
     <div id="middle-section">
     <div id="table">
     <table>
@@ -120,8 +120,8 @@ app.post('/', async (req, res) => {
                 <p class="itemtext">${index + 1}</p>
             </td>
             <td class="tableitem">
-                <p class="itemtext">${medicine.brandName?medicine.brandName:""}</p>
-                <p class="itemtext">${medicine.genericName ? medicine.genericName : ""}</p>
+                <p class="itemtext">${medicine.brandName ? medicine.brandName : ""}</p>
+                ${settings.medicineComposition ? `<p class="itemtext">${medicine.genericName ? medicine.genericName : ""}</p>` : ``}
             </td>
             <td class="tableitem">
                 <p class="itemtext">${medicine.frequancy ? medicine.frequancy : ""}</p>
