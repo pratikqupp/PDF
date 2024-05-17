@@ -120,7 +120,7 @@ app.post('/', async (req, res) => {
                 <p class="itemtext">${index + 1}</p>
             </td>
             <td class="tableitem">
-                <p class="itemtext">${medicine.brandName}</p>
+                <p class="itemtext">${medicine.brandName?medicine.brandName:""}</p>
                 <p class="itemtext">${medicine.genericName ? medicine.genericName : ""}</p>
             </td>
             <td class="tableitem">
