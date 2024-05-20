@@ -13,38 +13,38 @@ app.post('/', async (req, res) => {
     }
     const requestData = req.body;
     console.log('req ', req.body);
-    const clinicAddress = requestData.clinicAddress ? requestData.clinicAddress : "";
-    const entityLogo = requestData.entityLogo ? requestData.entityLogo : "";
-    const qrCode = requestData.qrCode ? requestData.qrCode : "";
-    const clinicContact = requestData.clinicContact ? requestData.clinicContact : "";
-    const clinicName = requestData.clinicName ? requestData.clinicName : "";
-    const clinicalFindings = requestData.clinicalFindings ? requestData.clinicalFindings : "";
-    const diagnoses = requestData.diagnoses ? requestData.diagnoses : "";
-    const doctorName = requestData.doctorName ? requestData.doctorName : "";
-    const instructions = requestData.instructions ? requestData.instructions : "";
-    const investigations = requestData.investigations ? requestData.investigations : "";
+    const clinicAddress = requestData.clinicAddress ? requestData.clinicAddress.trim() : "";
+    const entityLogo = requestData.entityLogo ? requestData.entityLogo.trim() : "";
+    const qrCode = requestData.qrCode ? requestData.qrCode.trim() : "";
+    const clinicContact = requestData.clinicContact ? requestData.clinicContact.trim() : "";
+    const clinicName = requestData.clinicName ? requestData.clinicName.trim() : "";
+    const clinicalFindings = requestData.clinicalFindings ? requestData.clinicalFindings.trim() : "";
+    const diagnoses = requestData.diagnoses ? requestData.diagnoses.trim() : "";
+    const doctorName = requestData.doctorName ? requestData.doctorName.trim() : "";
+    const instructions = requestData.instructions ? requestData.instructions.trim() : "";
+    const investigations = requestData.investigations ? requestData.investigations.trim() : "";
 
     const medicineDTOS = requestData.medicineDTOS ? requestData.medicineDTOS : [];
-    const symptoms = requestData.symptom ? requestData.symptom : "";
-    const vital = requestData.vital ? requestData.vital : "";
-    const patientBookingRequestId = requestData.patientBookingRequestId ? requestData.patientBookingRequestId : "";
-    const patientName = requestData.patientName ? requestData.patientName : "";
-    const prescriptionId = requestData.prescriptionId ? requestData.prescriptionId : "";
-    const entityId = requestData.entityId ? requestData.entityId : "";
-    const privateInstruction = requestData.privateInstruction ? requestData.privateInstruction : "";
-    const followupDate = requestData.followupDate ? requestData.followupDate : "";
-    const followupNote = requestData.followupNote ? requestData.followupNote : "";
-    const referredDoctorId = requestData.referredDoctorId ? requestData.referredDoctorId : "";
-    const referredDoctorName = requestData.referredDoctorName ? requestData.referredDoctorName : "";
-    const doctorDegress = requestData.doctorDegress ? requestData.doctorDegress : "";
-    const patientMobileNumber = requestData.patientMobileNumber ? requestData.patientMobileNumber : "";
-    const prescriptionDate = requestData.prescriptionDate ? requestData.prescriptionDate : "";
-    const patientAgeGender = requestData.patientAgeGender ? requestData.patientAgeGender : "";
+    const symptoms = requestData.symptom ? requestData.symptom.trim() : "";
+    const vital = requestData.vital ? requestData.vital.trim() : "";
+    const patientBookingRequestId = requestData.patientBookingRequestId ? requestData.patientBookingRequestId.trim() : "";
+    const patientName = requestData.patientName ? requestData.patientName.trim() : "";
+    const prescriptionId = requestData.prescriptionId ? requestData.prescriptionId.trim() : "";
+    const entityId = requestData.entityId ? requestData.entityId.trim() : "";
+    const privateInstruction = requestData.privateInstruction ? requestData.privateInstruction.trim() : "";
+    const followupDate = requestData.followupDate ? requestData.followupDate.trim() : "";
+    const followupNote = requestData.followupNote ? requestData.followupNote.trim() : "";
+    const referredDoctorId = requestData.referredDoctorId ? requestData.referredDoctorId.trim() : "";
+    const referredDoctorName = requestData.referredDoctorName ? requestData.referredDoctorName.trim() : "";
+    const doctorDegress = requestData.doctorDegress ? requestData.doctorDegress.trim() : "";
+    const patientMobileNumber = requestData.patientMobileNumber ? requestData.patientMobileNumber.trim() : "";
+    const prescriptionDate = requestData.prescriptionDate ? requestData.prescriptionDate.trim() : "";
+    const patientAgeGender = requestData.patientAgeGender ? requestData.patientAgeGender.trim() : "";
     const settings = requestData.settings ? requestData.settings : {};
     const prescriptionPrintSettings = requestData.prescriptionPrintSettings ? requestData.prescriptionPrintSettings : {};
     const medicalInfoOfGynecModule = requestData.medicalInfoOfGynecModule ? requestData.medicalInfoOfGynecModule : {};
 
-    const language = getLanguage(requestData.language ? requestData.language : "");
+    const language = getLanguage(requestData.language ? requestData.language.trim() : "");
 
     function getLanguage(language) {
         switch (language.toLowerCase()) {
@@ -109,38 +109,39 @@ app.post('/', async (req, res) => {
     </td>
     `: ``}
 </tr>`;
-    const medicineTable = medicineDTOS ? `
-    <div id="middle-section">
+    const medicineTable = medicineDTOS && medicineDTOS.length > 0 ? `
+<div id="middle-section">
     <div id="table">
-    <table>
-        ${medicineHeaders}
-        ${medicineDTOS.map((medicine, index) => `
-        <tr class="service">
-            <td class="tableitem">
-                <p class="itemtext">${index + 1}</p>
-            </td>
-            <td class="tableitem">
-                <p class="itemtext">${medicine.brandName ? medicine.brandName : ""}</p>
-                ${settings.medicineComposition ? `<p class="itemtext">${medicine.genericName ? medicine.genericName : ""}</p>` : ``}
-            </td>
-            <td class="tableitem">
-                <p class="itemtext">${medicine.frequancy ? medicine.frequancy : ""}</p>
-            </td>
-            <td class="tableitem">
-                <p class="itemtext">${medicine.duration ? medicine.duration : ""}</p>
-            </td>
-            ${settings.totalQuantity ? `
-            <td class="tableitem">
-            <p class="itemtext">${medicine.quantity ? medicine.quantity : ""}</p>
-        </td>
-    `: ``}      
-        </tr>`
+        <table>
+            ${medicineHeaders}
+            ${medicineDTOS.map((medicine, index) => `
+                <tr class="service">
+                    <td class="tableitem">
+                        <p class="itemtext">${index + 1}</p>
+                    </td>
+                    <td class="tableitem">
+                        <p class="itemtext">${medicine.brandName ? medicine.brandName : ""}</p>
+                        ${settings.medicineComposition ? `<p class="itemtext">${medicine.genericName ? medicine.genericName : ""}</p>` : ``}
+                    </td>
+                    <td class="tableitem">
+                        <p class="itemtext">${medicine.frequancy ? medicine.frequancy : ""}</p>
+                    </td>
+                    <td class="tableitem">
+                        <p class="itemtext">${medicine.duration ? medicine.duration : ""}</p>
+                    </td>
+                    ${settings.totalQuantity ? `
+                        <td class="tableitem">
+                            <p class="itemtext">${medicine.quantity ? medicine.quantity : ""}</p>
+                        </td>
+                    ` : ``}      
+                </tr>`
     ).join('')}
-    </table>
+        </table>
+    </div>
+    <br>
 </div>
-<br>
-</div>
-`: '';
+` : '';
+
     const investigationsLayout =
         `${investigations ? `<p><strong>Investigations :</strong> ${investigations}</p>
     <br>`: ``}
