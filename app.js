@@ -373,7 +373,7 @@ app.post('/', async (req, res) => {
         <div id="invoice" class="effect2">
             <div id="invoice-bot">
                 <div id="left-section">
-                ${settings.vitals ? `<p><strong>Vital : </strong> ${vital}</p> <br>` : ``}
+                ${vital ? settings.vitals ? `<p><strong>Vital : </strong> ${vital}</p> <br>` : `` : ''}
                     ${symptoms ? symptomsLayout : ''}
                     ${clinicalFindings ? clinicalFindingLayout : ''}
                     ${diagnoses ? diagnosesLayout : ''}
