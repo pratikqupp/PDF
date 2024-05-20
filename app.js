@@ -374,9 +374,9 @@ app.post('/', async (req, res) => {
             <div id="invoice-bot">
                 <div id="left-section">
                 ${settings.vitals ? `<p><strong>Vital : </strong> ${vital}</p> <br>` : ``}
-                    ${symptomsLayout}
-                    ${clinicalFindingLayout}
-                    ${diagnosesLayout}
+                    ${symptoms ? symptomsLayout : ''}
+                    ${clinicalFindings ? clinicalFindingLayout : ''}
+                    ${diagnoses ? diagnosesLayout : ''}
                 </div>
                     ${medicineTable}
                 <div id="right-section">
@@ -392,8 +392,8 @@ app.post('/', async (req, res) => {
                 ${medicalInfoOfGynecModule.childWithMentalOrGeneticDisorder ? `<p><strong>Child with mental or genetic disorder :</strong> ${medicalInfoOfGynecModule.childWithMentalOrGeneticDisorder}</p> <br> ` : ``}
                 ${medicalInfoOfGynecModule.menopausheAge ? `<p><strong>Menopause Age :</strong> ${medicalInfoOfGynecModule.menopausheAge}</p> <br> ` : ``}
                
-                    ${investigationsLayout}
-                    ${instructionsLayout}
+                    ${investigations ? investigationsLayout : ''}
+                    ${instructions ? instructionsLayout : ''}
                     ${followupDate ? ` <p><strong>Next Follow-up :</strong> Date:- ${followupDate}</p> <br> ` : ``}
                     ${followupNote ? ` <p><strong>Followup Note : </strong> ${followupNote}</p> <br> ` : ``}
 
