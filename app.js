@@ -357,17 +357,18 @@ app.post('/', async (req, res) => {
     <div id="invoiceholder">
         ${entityLayout}
         <div>
-            <div id="invoice-mid">
-                <div class="info">
-                    <h2>Name : ${patientName}</h2>
-                    <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Age/Gender :</strong> ${patientAgeGender}</span></p>
-                </div>
-                <div id="project">
-                    <h2><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Date :</strong> ${prescriptionDate}</span></h2>
-                    <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Mobile No :</strong> ${patientMobileNumber}</span></p>
-                </div>
+        <div id="invoice-mid" style="display: flex; justify-content: space-between;">
+            <div class="info" style="width: calc(50% - 25px);">
+            <h2>Name : ${patientName}</h2>
+            <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Age/Gender :</strong> ${patientAgeGender}</span></p>
             </div>
+            <div id="project" style="width: calc(50% - 25px);">
+            <h2><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Date :</strong> ${prescriptionDate}</span></h2>
+            <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Mobile No :</strong> ${patientMobileNumber}</span></p>
         </div>
+        </div>
+        <hr style="background-color: rgb(226, 223, 223);">
+    </div>
         <hr style="background-color: rgb(226, 223, 223) margin: 0px ${prescriptionPrintSettings.marginRight} 0px ${prescriptionPrintSettings.marginLeft};">
         <div id="invoice" class="effect2">
             <div id="invoice-bot">
