@@ -43,7 +43,7 @@ app.post('/', async (req, res) => {
     const settings = requestData.settings ? requestData.settings : {};
     const prescriptionPrintSettings = requestData.prescriptionPrintSettings ? requestData.prescriptionPrintSettings : {};
     const medicalInfoOfGynecModule = requestData.medicalInfoOfGynecModule ? requestData.medicalInfoOfGynecModule : {};
-
+    const prescriptionFontConfiguration = requestData.prescriptionFontConfiguration ? requestData.prescriptionFontConfiguration : {};
     const language = getLanguage(requestData.language ? requestData.language.trim() : "");
 
     function getLanguage(language) {
@@ -70,24 +70,24 @@ app.post('/', async (req, res) => {
             <div class="info" style="width: calc(50% - 25px);">
                 <h2>${clinicName}</h2>
                 <p style="max-width: 100%;">${clinicAddress}<br>
-                <strong>Contact :</strong> ${clinicContact}
-                </p>
+    <span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Contact :</strong> ${clinicContact}</span>
+  </span></p>
             </div>
             <div id="project" style="width: calc(50% - 25px);">
                 <h2>${doctorName}</h2>
-                <p class="degree" style="max-width: 100%; word-wrap: break-word;">${doctorDegress}</p>
+                <p class="degree" style="max-width: 100%; word-wrap: break-word;">${doctorDegress}</span></p>
             </div>
         </div>
         <hr style="background-color: rgb(226, 223, 223);">
     </div>
     ` : '';
-    const symptomsLayout = settings.symptoms ? `<p><strong>Symptoms :</strong> ${symptoms}</p>
+    const symptomsLayout = settings.symptoms ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Symptoms :</strong> ${symptoms}</span></span></p>
 <br>`: '';
-    const clinicalFindingLayout = settings.clinicalFinding ? `<p><strong>Clinical Findings :</strong> ${clinicalFindings}</p>
+    const clinicalFindingLayout = settings.clinicalFinding ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Clinical Findings :</strong> ${clinicalFindings}</span></span></p>
 <br>`: '';
 
     const diagnosesLayout = settings.diagnosis ?
-        `${diagnoses ? `<p><strong>Diagnosis :</strong> ${diagnoses}</p>
+        `${diagnoses ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Diagnosis :</strong> ${diagnoses}</span></p>
 <br>`: ``}
 `: ``;
     const medicineHeaders = ` <tr class="tabletitle">
@@ -143,11 +143,11 @@ app.post('/', async (req, res) => {
 ` : '';
 
     const investigationsLayout =
-        `${investigations ? `<p><strong>Investigations :</strong> ${investigations}</p>
+        `${investigations ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Investigations :</strong> ${investigations}</span></p>
     <br>`: ``}
 `;
     const instructionsLayout = settings.instruction ? `
-    ${instructions ? `<p><strong>General instructions :</strong></p>
+    ${instructions ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>General instructions :</strong></span></p>
 <p>${instructions}</p>` : ``}
 <br>
 `: '';
@@ -360,13 +360,11 @@ app.post('/', async (req, res) => {
             <div id="invoice-mid">
                 <div class="info">
                     <h2>Name : ${patientName}</h2>
-                    <p><strong>Age/Gender :</strong> ${patientAgeGender}
-                    </p>
+                    <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Age/Gender :</strong> ${patientAgeGender}</span></p>
                 </div>
                 <div id="project">
-                    <h2><strong>Date :</strong> ${prescriptionDate}</h2>
-                    <p><strong>Mobile No :</strong> ${patientMobileNumber}
-                    </p>
+                    <h2><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Date :</strong> ${prescriptionDate}</span></h2>
+                    <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Mobile No :</strong> ${patientMobileNumber}</span></p>
                 </div>
             </div>
         </div>
@@ -374,29 +372,29 @@ app.post('/', async (req, res) => {
         <div id="invoice" class="effect2">
             <div id="invoice-bot">
                 <div id="left-section">
-                ${vital ? settings.vitals ? `<p><strong>Vital : </strong> ${vital}</p> <br>` : `` : ''}
+                ${vital ? settings.vitals ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Vital : </strong> ${vital}</span></p> <br>` : `` : ''}
                     ${symptoms ? symptomsLayout : ''}
                     ${clinicalFindings ? clinicalFindingLayout : ''}
                     ${diagnoses ? diagnosesLayout : ''}
                 </div>
                     ${medicineTable}
                 <div id="right-section">
-                ${medicalInfoOfGynecModule.gptal ? `<p><strong>GTPAL :</strong> ${medicalInfoOfGynecModule.gptal}</p> <br> ` : ``}
-                ${medicalInfoOfGynecModule.lmpOrEdd ? `<p><strong>LMP/EDD :</strong> ${medicalInfoOfGynecModule.lmpOrEdd}</p> <br> ` : ``}
-                ${medicalInfoOfGynecModule.cEdd ? `<p><strong>C-EDD :</strong> ${medicalInfoOfGynecModule.cEdd}</p> <br> ` : ``}
-                ${medicalInfoOfGynecModule.cycle ? `<p><strong>Cycle :</strong> ${medicalInfoOfGynecModule.cycle}</p> <br> ` : ``}
-                ${medicalInfoOfGynecModule.flow ? `<p><strong>Flow :</strong> ${medicalInfoOfGynecModule.flow}</p> <br> ` : ``}
-                ${medicalInfoOfGynecModule.surgeryList ? `<p><strong>Surgery :</strong> ${medicalInfoOfGynecModule.surgeryList}</p> <br> ` : ``}
-                ${medicalInfoOfGynecModule.patientHistory ? `<p><strong>Patient Medical Disease :</strong> ${medicalInfoOfGynecModule.patientHistory}</p> <br> ` : ``}
-                ${medicalInfoOfGynecModule.familyMemberHistory ? `<p><strong>Family Member Medical Disease :</strong> ${medicalInfoOfGynecModule.familyMemberHistory}</p> <br> ` : ``}
-                ${medicalInfoOfGynecModule.breastCancer ? `<p><strong>Breast Cancer :</strong> ${medicalInfoOfGynecModule.breastCancer}</p> <br> ` : ``}
-                ${medicalInfoOfGynecModule.childWithMentalOrGeneticDisorder ? `<p><strong>Child with mental or genetic disorder :</strong> ${medicalInfoOfGynecModule.childWithMentalOrGeneticDisorder}</p> <br> ` : ``}
-                ${medicalInfoOfGynecModule.menopausheAge ? `<p><strong>Menopause Age :</strong> ${medicalInfoOfGynecModule.menopausheAge}</p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.gptal ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>GTPAL :</strong> ${medicalInfoOfGynecModule.gptal}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.lmpOrEdd ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>LMP/EDD :</strong> ${medicalInfoOfGynecModule.lmpOrEdd}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.cEdd ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>C-EDD :</strong> ${medicalInfoOfGynecModule.cEdd}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.cycle ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Cycle :</strong> ${medicalInfoOfGynecModule.cycle}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.flow ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Flow :</strong> ${medicalInfoOfGynecModule.flow}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.surgeryList ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Surgery :</strong> ${medicalInfoOfGynecModule.surgeryList}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.patientHistory ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Patient Medical Disease :</strong> ${medicalInfoOfGynecModule.patientHistory}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.familyMemberHistory ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Family Member Medical Disease :</strong> ${medicalInfoOfGynecModule.familyMemberHistory}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.breastCancer ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Breast Cancer :</strong> ${medicalInfoOfGynecModule.breastCancer}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.childWithMentalOrGeneticDisorder ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Child with mental or genetic disorder :</strong> ${medicalInfoOfGynecModule.childWithMentalOrGeneticDisorder}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.menopausheAge ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Menopause Age :</strong> ${medicalInfoOfGynecModule.menopausheAge}</span></p> <br> ` : ``}
                
                     ${investigations ? investigationsLayout : ''}
                     ${instructions ? instructionsLayout : ''}
-                    ${followupDate ? ` <p><strong>Next Follow-up :</strong> Date:- ${followupDate}</p> <br> ` : ``}
-                    ${followupNote ? ` <p><strong>Followup Note : </strong> ${followupNote}</p> <br> ` : ``}
+                    ${followupDate ? ` <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Next Follow-up :</strong> Date:- ${followupDate}</span></p> <br> ` : ``}
+                    ${followupNote ? ` <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Followup Note : </strong> ${followupNote}</span></p> <br> ` : ``}
 
                     <div style="display: flex; align-items: center;">
                     <div class="info" style="flex: 1; margin-right: 20px;">
