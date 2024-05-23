@@ -50,12 +50,16 @@ app.post('/', async (req, res) => {
         switch (language.toLowerCase()) {
             case 'english':
                 return 'Devanagari';
+                break;
             case 'marathi':
                 return 'Devanagari';
+                break;
             case 'hindi':
                 return 'Devanagari';
+                break;
             default:
                 return language;
+
         }
     }
 
@@ -66,55 +70,93 @@ app.post('/', async (req, res) => {
             <div class="info" style="width: calc(50% - 25px);">
                 <h2>${clinicName}</h2>
                 <p style="max-width: 100%;">${clinicAddress}<br>
-                <span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Contact :</strong> ${clinicContact}</span></p>
+    <span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Contact :</strong> ${clinicContact}</span>
+  </span></p>
             </div>
             <div id="project" style="width: calc(50% - 25px);">
                 <h2>${doctorName}</h2>
-                <p class="degree" style="max-width: 100%; word-wrap: break-word;">${doctorDegress}</p>
+                <p class="degree" style="max-width: 100%; word-wrap: break-word;">${doctorDegress}</span></p>
             </div>
         </div>
         <hr style="background-color: rgb(226, 223, 223);">
     </div>
     ` : '';
-    
-    const symptomsLayout = settings.symptoms ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Symptoms :</strong> ${symptoms}</span></p><br>`: '';
-    const clinicalFindingLayout = settings.clinicalFinding ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Clinical Findings :</strong> ${clinicalFindings}</span></p><br>`: '';
-    const diagnosesLayout = settings.diagnosis ? (diagnoses ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Diagnosis :</strong> ${diagnoses}</span></p><br>`: ``) : ``;
-    
-    const medicineHeaders = ` 
-    <tr class="tabletitle">
-        <td class="sr"><h2>RX </h2></td>
-        <td class="item"><h2>BRANDS </h2></td>
-        <td class="Hours"><h2>FREQUENCY </h2></td>
-        <td class="Rate"><h2>DURATION </h2></td>
-        ${settings.totalQuantity ? `<td class="subtotal"><h2>QUANTITY </h2></td>`: ``}
-    </tr>`;
+    const symptomsLayout = settings.symptoms ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Symptoms :</strong> ${symptoms}</span></span></p>
+<br>`: '';
+    const clinicalFindingLayout = settings.clinicalFinding ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Clinical Findings :</strong> ${clinicalFindings}</span></span></p>
+<br>`: '';
 
+    const diagnosesLayout = settings.diagnosis ?
+        `${diagnoses ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Diagnosis :</strong> ${diagnoses}</span></p>
+<br>`: ``}
+`: ``;
+    const medicineHeaders = ` <tr class="tabletitle">
+    <td class="sr">
+        <h2>RX </h2>
+    </td>
+    <td class="item">
+        <h2>BRANDS </h2>
+    </td>
+    <td class="Hours">
+        <h2>FREQUENCY </h2>
+    </td>
+    <td class="Rate">
+        <h2>DURATION </h2>
+    </td>
+    ${settings.totalQuantity ? `
+    <td class="subtotal">
+        <h2>QUANTITY </h2>
+    </td>
+    `: ``}
+</tr>`;
     const medicineTable = medicineDTOS && medicineDTOS.length > 0 ? `
-    <div id="middle-section">
-        <div id="table">
-            <table>
-                ${medicineHeaders}
-                ${medicineDTOS.map((medicine, index) => `
-                    <tr class="service">
-                        <td class="tableitem"><p class="itemtext">${index + 1}</p></td>
-                        <td class="tableitem"><p class="itemtext">${medicine.brandName ? medicine.brandName : ""}</p>${settings.medicineComposition ? `<p class="itemtext">${medicine.genericName ? medicine.genericName : ""}</p>` : ``}</td>
-                        <td class="tableitem"><p class="itemtext">${medicine.frequancy ? medicine.frequancy : ""}</p></td>
-                        <td class="tableitem"><p class="itemtext">${medicine.duration ? medicine.duration : ""}</p></td>
-                        ${settings.totalQuantity ? `<td class="tableitem"><p class="itemtext">${medicine.quantity ? medicine.quantity : ""}</p></td>` : ``}      
-                    </tr>`
-                ).join('')}
-            </table>
-        </div>
-        <br>
+<div id="middle-section">
+    <div id="table">
+        <table>
+            ${medicineHeaders}
+            ${medicineDTOS.map((medicine, index) => `
+                <tr class="service">
+                    <td class="tableitem">
+                        <p class="itemtext">${index + 1}</p>
+                    </td>
+                    <td class="tableitem">
+                        <p class="itemtext">${medicine.brandName ? medicine.brandName : ""}</p>
+                        ${settings.medicineComposition ? `<p class="itemtext">${medicine.genericName ? medicine.genericName : ""}</p>` : ``}
+                    </td>
+                    <td class="tableitem">
+                        <p class="itemtext">${medicine.frequancy ? medicine.frequancy : ""}</p>
+                    </td>
+                    <td class="tableitem">
+                        <p class="itemtext">${medicine.duration ? medicine.duration : ""}</p>
+                    </td>
+                    ${settings.totalQuantity ? `
+                        <td class="tableitem">
+                            <p class="itemtext">${medicine.quantity ? medicine.quantity : ""}</p>
+                        </td>
+                    ` : ``}      
+                </tr>`
+    ).join('')}
+        </table>
     </div>
-    ` : '';
+    <br>
+</div>
+` : '';
 
-    const investigationsLayout = investigations ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Investigations :</strong> ${investigations}</span></p><br>` : '';
-    const instructionsLayout = settings.instruction ? (instructions ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>General instructions :</strong></span></p><p>${instructions}</p><br>` : ``) : '';
-    const footer = settings.signature ? `<div><h2>${doctorName}</h2><p class="degree" style="max-width: 600px; word-wrap: break-word;">${doctorDegress}</p></div>`: '';
-
-    const htmlContent = `
+    const investigationsLayout =
+        `${investigations ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Investigations :</strong> ${investigations}</span></p>
+    <br>`: ``}
+`;
+    const instructionsLayout = settings.instruction ? `
+    ${instructions ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>General instructions :</strong></span></p>
+<p>${instructions}</p>` : ``}
+<br>
+`: '';
+    const footer = settings.signature ? ` <div>
+        <h2>${doctorName}</h2>
+        <p class="degree" style="max-width: 600px; word-wrap: break-word;">${doctorDegress}</p>
+    `: ``;
+    const htmlContent =
+        `
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
@@ -122,138 +164,266 @@ app.post('/', async (req, res) => {
     <title>Q UP Bill</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+${language}:wght@400&display=swap" rel="stylesheet">
     <style>
+
         * {
-            margin: ${prescriptionPrintSettings.marginTop}px ${prescriptionPrintSettings.marginRight}px ${prescriptionPrintSettings.marginBottom}px ${prescriptionPrintSettings.marginLeft}px;
+            margin: ${prescriptionPrintSettings.marginTop}   ${prescriptionPrintSettings.marginRight} ${prescriptionPrintSettings.marginBottom} ${prescriptionPrintSettings.marginLeft};
             box-sizing: border-box;
         }
+
         body {
             font-family: 'Noto Sans ${language}', sans-serif;
             background-repeat: repeat-y;
             background-size: 100%;
         }
+
         ::selection {
             background: #f31544;
             color: #FFF;
         }
+
         ::moz-selection {
             background: #f31544;
             color: #FFF;
         }
+
         h1 {
             font-size: 1.5em;
             color: #222;
         }
+
         h2 {
             font-size: .9em;
         }
+
         h3 {
             font-size: 1.2em;
             font-weight: 300;
             line-height: 2em;
         }
+
         p {
             font-size: .7em;
             color: #666;
             line-height: 1.2em;
         }
-        #invoice-mid {
-            min-height: 100px;
+
+        #invoiceholder {
+            width: 100%;
+            height: 100%;
+            padding-top: 50px;
         }
-        .logo {
-            display: block;
+
+        #headerimage {
+            z-index: -1;
+            position: relative;
+            overflow: hidden;
+            background-attachment: fixed;
+            background-size: 1920px 80%;
+            background-position: 50% -90%;
+        }
+
+        #invoice {
+            position: relative;
             margin: 0 auto;
-            width: 70px;
-            height: 70px;
-            background-image: url("data:image/png;base64,${entityLogo}");
-            background-size: 70px 70px;
+            background: #FFF;
+        }
+
+        [id*='invoice-'] {
+            padding: 30px;
+        }
+
+        [id*='bottomline-'] {
+            border-bottom: 1px solid #EEE;
+            padding: 30px;
+        }
+
+        #invoice-bot {
+            min-height: 250px;
+        }
+
+        .logo {
+            float: left;
+            height: 60px;
+            width: 60px;
+            background-size: 60px 60px;
+        }
+
+        .clientlogo {
+            float: left;
+            height: 60px;
+            width: 60px;
+            background-size: 60px 60px;
             border-radius: 50px;
         }
+
         .info {
             display: block;
+            float: left;
             margin-left: 20px;
         }
-        .info h2 {
-            margin: 0;
-            line-height: 1.5em;
-            font-size: 1.4em;
-        }
-        .info p {
-            margin: 0;
-        }
+
         .title {
             float: right;
         }
+
         .title p {
             text-align: right;
         }
+
+        #project {
+            margin-left: 52%;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
+
         td {
             padding: 5px 0 5px 15px;
             border: 1px solid #EEE
         }
+
         .tabletitle {
+            padding: 5px;
             background: #EEE;
         }
+
         .service {
             border: 1px solid #EEE;
         }
+
         .item {
             width: 50%;
         }
+
         .itemtext {
-            font-size: .9em;
+            font-size: 11px;
         }
-        .rate {
-            font-size: 1.2em;
-            color: #333;
+
+        #legalcopy {
+            margin-top: 30px;
         }
-        .paid {
-            padding: 10px;
-            text-align: center;
-            background: #F97352;
-            color: #FFF;
+
+        form {
+            float: right;
+            margin-top: 30px;
+            text-align: right;
         }
+
+        .effect2 {
+            position: relative;
+        }
+
+        .effect2:before,
+        .effect2:after {
+            z-index: -1;
+            position: absolute;
+            content: "";
+            bottom: 15px;
+            left: 10px;
+            width: 50%;
+            top: 80%;
+            max-width: 300px;
+            background: #777;
+            -webkit-transform: rotate(-3deg);
+            -moz-transform: rotate(-3deg);
+            -o-transform: rotate(-3deg);
+            -ms-transform: rotate(-3deg);
+            transform: rotate(-3deg);
+        }
+
+        .effect2:after {
+            -webkit-transform: rotate(3deg);
+            -moz-transform: rotate(3deg);
+            -o-transform: rotate(3deg);
+            -ms-transform: rotate(3deg);
+            transform: rotate(3deg);
+            right: 10px;
+            left: auto;
+        }
+
         .legal {
             width: 70%;
         }
+
+        .degree {
+            white-space: pre-wrap;
+        }
     </style>
 </head>
+
 <body>
-    <div id="invoice-mid">
+    <div id="invoiceholder">
         ${entityLayout}
+        <div>
+        <div id="invoice-mid" style="display: flex; justify-content: space-between;">
+            <div class="info" style="width: calc(50% - 25px);">
+            <h2>Name : ${patientName}</h2>
+            <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Age/Gender :</strong> ${patientAgeGender}</span></p>
+            </div>
+            <div id="project" style="width: calc(50% - 25px);">
+            <h2><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Date :</strong> ${prescriptionDate}</span></h2>
+            <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Mobile No :</strong> ${patientMobileNumber}</span></p>
+        </div>
+        </div>
     </div>
-    ${symptomsLayout}
-    ${clinicalFindingLayout}
-    ${diagnosesLayout}
-    ${medicineTable}
-    ${investigationsLayout}
-    ${instructionsLayout}
-    ${footer}
+        <hr style="background-color: rgb(226, 223, 223) margin: 0px ${prescriptionPrintSettings.marginRight} 0px ${prescriptionPrintSettings.marginLeft};">
+        <div id="invoice" class="effect2">
+            <div id="invoice-bot">
+                <div id="left-section">
+                ${vital ? settings.vitals ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Vital : </strong> ${vital}</span></p> <br>` : `` : ''}
+                    ${symptoms ? symptomsLayout : ''}
+                    ${clinicalFindings ? clinicalFindingLayout : ''}
+                    ${diagnoses ? diagnosesLayout : ''}
+                </div>
+                    ${medicineTable}
+                <div id="right-section">
+                ${medicalInfoOfGynecModule.gptal ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>GTPAL :</strong> ${medicalInfoOfGynecModule.gptal}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.lmpOrEdd ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>LMP/EDD :</strong> ${medicalInfoOfGynecModule.lmpOrEdd}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.cEdd ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>C-EDD :</strong> ${medicalInfoOfGynecModule.cEdd}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.cycle ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Cycle :</strong> ${medicalInfoOfGynecModule.cycle}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.flow ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Flow :</strong> ${medicalInfoOfGynecModule.flow}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.surgeryList ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Surgery :</strong> ${medicalInfoOfGynecModule.surgeryList}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.patientHistory ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Patient Medical Disease :</strong> ${medicalInfoOfGynecModule.patientHistory}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.familyMemberHistory ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Family Member Medical Disease :</strong> ${medicalInfoOfGynecModule.familyMemberHistory}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.breastCancer ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Breast Cancer :</strong> ${medicalInfoOfGynecModule.breastCancer}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.childWithMentalOrGeneticDisorder ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Child with mental or genetic disorder :</strong> ${medicalInfoOfGynecModule.childWithMentalOrGeneticDisorder}</span></p> <br> ` : ``}
+                ${medicalInfoOfGynecModule.menopausheAge ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Menopause Age :</strong> ${medicalInfoOfGynecModule.menopausheAge}</span></p> <br> ` : ``}
+               
+                    ${investigations ? investigationsLayout : ''}
+                    ${instructions ? instructionsLayout : ''}
+                    ${followupDate ? ` <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Next Follow-up :</strong> Date:- ${followupDate}</span></p> <br> ` : ``}
+                    ${followupNote ? ` <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Followup Note : </strong> ${followupNote}</span></p> <br> ` : ``}
+
+                    <div style="display: flex; align-items: center;">
+                    <div class="info" style="flex: 1; margin-right: 20px;">
+                    ${qrCode ? `
+                    <img src="data:image/png;base64,${qrCode}" width="38" height="38" style="display: block; margin: 0 auto;"</img>
+                    <p style="color: blue; margin: 0; font-size: 10px;">Download your prescription on Q UP app</p>
+                    ` : ``}
+                    </div>
+                    <div id="project" style="flex: 1;"> ${footer} </div>
+                </div>
+            </div>
+        </div>
+     </div>
+    <div>
+</div>
+</div>
+</div>
+    </div>
+    <script>
+    </script>
 </body>
 </html>
-    `;
+`;
 
-    const pdf = await generatePDF(htmlContent);
-
-    res.setHeader('Content-Disposition', 'attachment; filename=invoice.pdf');
-    res.setHeader('Content-Type', 'application/pdf');
-    res.send(pdf);
-});
-
-async function generatePDF(content) {
     const page = await browserInstance.newPage();
-    await page.setContent(content, { waitUntil: 'networkidle0' });
-    const pdfBuffer = await page.pdf({ format: 'A4' });
-    await page.close();
-    return pdfBuffer;
-}
-
-process.on('SIGINT', async () => {
-    if (browserInstance) await browserInstance.close();
-    process.exit();
+    await page.setContent(htmlContent, { waitUntil: 'domcontentloaded' });
+    const pdfBuffer = await page.pdf();
+    res.setHeader('Content-Type', 'application/pdf');
+    res.send(pdfBuffer);
 });
 
 const port = process.env.PORT || 3000;
