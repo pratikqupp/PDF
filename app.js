@@ -367,7 +367,6 @@ app.post('/', async (req, res) => {
             <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Mobile No :</strong> ${patientMobileNumber}</span></p>
         </div>
         </div>
-        <hr style="background-color: rgb(226, 223, 223);">
     </div>
         <hr style="background-color: rgb(226, 223, 223) margin: 0px ${prescriptionPrintSettings.marginRight} 0px ${prescriptionPrintSettings.marginLeft};">
         <div id="invoice" class="effect2">
