@@ -400,8 +400,8 @@ ${entityLayout}
                
                     ${investigations ? investigationsLayout : ''}
                     ${instructions ? instructionsLayout : ''}
-                    ${followupDate ? ` <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Next Follow-up :</strong> Date:- ${followupDate}</span></p> <br> ` : ``}
-                    ${followupNote ? ` <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Followup Note : </strong> ${followupNote}</span></p> <br> ` : ``}
+                    ${followupDate ? ` <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Next Follow-up :</strong> Date:- ${followupDate}</span></p> ` : ``}
+                    ${followupNote ? ` <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Followup Note : </strong> ${followupNote}</span></p> ` : ``}
 
                     <div style="display: flex; align-items: center;">
                     <div class="info" style="flex: 1; margin-right: 20px;">
