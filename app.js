@@ -406,7 +406,7 @@ ${entityLayout}
                     <div style="display: flex; align-items: center;">
                     <div class="info" style="flex: 1; margin-right: 20px;">
                     ${qrCode ? `
-                    <img src="data:image/png;base64,${qrCode}" width="38" height="38" style="display: block; margin: 0 auto;"</img>
+                    <img src="data:image/png;base64,${qrCode}" width="68" height="68" style="display: block; margin: 0 auto;"</img>
                     <p style="color: blue; margin: 0; font-size: 10px;">Download your prescription on Q UP app</p>
                     ` : ``}
                     </div>
