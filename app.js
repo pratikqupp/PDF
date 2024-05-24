@@ -65,8 +65,8 @@ app.post('/', async (req, res) => {
 
     const entityLayout = settings.letterHead ? `
     <div>
+    ${entityLogo ? `<img src="data:image/png;base64,${entityLogo}" width="68" height="68" style="display: block; margin: 0 auto;"><br>` : ``}
         <div id="invoice-mid" style="display: flex; justify-content: space-between;">
-            ${entityLogo ? `<img src="data:image/png;base64,${entityLogo}" width="68" height="68" style="display: block; margin: 0 auto;"><br>` : ``}
             <div class="info" style="width: calc(50% - 10px);">
                 <h2 style="font-size: ${prescriptionFontConfiguration.fontHeader}px;">${clinicName}</h2>
                 <p style="max-width: 100%; font-size: ${prescriptionFontConfiguration.fontHeader}px;">${clinicAddress}<br>
