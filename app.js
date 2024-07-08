@@ -90,7 +90,7 @@ app.post('/', async (req, res) => {
         `${diagnoses ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Diagnosis :</strong> </span> <span style="font-size: ${prescriptionFontConfiguration.fontDetails}px;">${diagnoses}</span></p>
 `: ``}
 `: ``;
-    const BasicInfoTable = settings.basicInfo ?
+    const BasicInfoTable = settings.medicalInfo ?
         ` ${medicalInfoOfGynecModule.gptal ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>GTPAL :</strong></span> <span style="font-size: ${prescriptionFontConfiguration.fontDetails}px;"> ${medicalInfoOfGynecModule.gptal}</span></p>  ` : ``}
                 ${medicalInfoOfGynecModule.lmpOrEdd ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>LMP/EDD :</strong></span> <span style="font-size: ${prescriptionFontConfiguration.fontDetails}px;"> ${medicalInfoOfGynecModule.lmpOrEdd}</span></p>  ` : ``}
                 ${medicalInfoOfGynecModule.cEdd ? `<p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>C-EDD :</strong> </span> <span style="font-size: ${prescriptionFontConfiguration.fontDetails}px;">${medicalInfoOfGynecModule.cEdd}</span></p>  ` : ``}
@@ -399,7 +399,7 @@ ${entityLayout}
                 </div>
                 ${medicineTable}
                 <div id="right-section">
-               ${BasicInfoTable}
+                    ${BasicInfoTable}
                     ${investigations ? investigationsLayout : ''}
                     ${instructions ? instructionsLayout : ''}
                     ${followupDate ? ` <p><span style="font-size: ${prescriptionFontConfiguration.fontTitle}px;"><strong>Next Follow-up :</strong> Date:-</span> <span style="font-size: ${prescriptionFontConfiguration.fontDetails}px;"> ${followupDate}</span></p> ` : ``}
